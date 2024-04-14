@@ -30,6 +30,6 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: ./Dockerfile
+        file: ./TP2/Dockerfile
         push: true
         tags: specimane/image-tp2:${{ github.sha }}
