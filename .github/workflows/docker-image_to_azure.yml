@@ -43,7 +43,7 @@ jobs:
         --resource-group ${{ secrets.RESOURCE_GROUP }} \
         --name 20230996 \
         --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/20230996:${{ github.sha }} \
-        --dns-name-label devops-${{ github.actor }}-tp2 \
+        --dns-name-label devops-${{ ID_EFREI}} \
         --location germanywestcentral \
         --registry-username ${{ secrets.REGISTRY_USERNAME }} \
         --registry-password ${{ secrets.REGISTRY_PASSWORD }} \
