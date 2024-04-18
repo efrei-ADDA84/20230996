@@ -45,7 +45,9 @@ jobs:
         --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/specimane/image-tp2:${{ github.sha }} \
         --dns-name-label devops-${{ github.actor }}-tp2 \
         --location francecentral \
-        --environment-variables API_KEY=$API_KEY
+        --registry-username ${{ secrets.REGISTRY_USERNAME }} \
+        --registry-password ${{ secrets.REGISTRY_PASSWORD }} \
+        --environment-variables API_KEY=${{ secrets.API_KEY }}
 
     - name: Cleanup
       if: ${{ always() }}
