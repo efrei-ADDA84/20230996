@@ -30,7 +30,7 @@ jobs:
         context: .
         file: ./TP3/Dockerfile
         push: true
-        tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/20230996:${{ github.sha }}
+        tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{secrets.ID_EFREI}}:${{ github.sha }}
 
     - name: Set up Azure CLI
       uses: azure/login@v1
@@ -41,8 +41,8 @@ jobs:
       run: |
         az container create \
         --resource-group ${{ secrets.RESOURCE_GROUP }} \
-        --name 20230996 \
-        --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/20230996:${{ github.sha }} \
+        --name ${{secrets.ID_EFREI}} \
+        --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{secrets.ID_EFREI}}:${{ github.sha }} \
         --dns-name-label devops-${{secrets.ID_EFREI}} \
         --location germanywestcentral \
         --registry-username ${{ secrets.REGISTRY_USERNAME }} \
