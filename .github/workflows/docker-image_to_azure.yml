@@ -30,7 +30,7 @@ jobs:
         context: .
         file: ./TP3/Dockerfile
         push: true
-        tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/specimane/image-tp2:${{ github.sha }}
+        tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/20230996:${{ github.sha }}
 
     - name: Set up Azure CLI
       uses: azure/login@v1
@@ -49,6 +49,3 @@ jobs:
         --registry-password ${{ secrets.REGISTRY_PASSWORD }} \
         --environment-variables API_KEY=${{ secrets.API_KEY }}
 
-    - name: Cleanup
-      if: ${{ always() }}
-      run: az container delete --name specimane-image-tp2 --resource-group ${{ secrets.RESOURCE_GROUP }} --yes
