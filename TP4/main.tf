@@ -3,7 +3,7 @@ data "azurerm_resource_group" "rg_imane" {
 }
 
 
-data "azurerm _virtual_network" "vnet_imane" {
+data "azurerm_virtual_network" "vnet_imane" {
   name                = var.vnet_name
   resource_group_name = data.azurerm_resource_group.rg_imane.name
 }
