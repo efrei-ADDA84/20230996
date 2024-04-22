@@ -1,0 +1,8 @@
+#cloud-config
+package_upgrade: true
+packages:
+  - docker.io
+
+runcmd:
+  - systemctl start docker
+  - systemctl enable docker
