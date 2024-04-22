@@ -1,24 +1,26 @@
-resource "random_pet" "ssh_key_name" {
-  prefix    = "ssh"
-  separator = ""
+# Resource pour générer la clé SSH
+resource "tls_private_key" "tls_key" {
+  algorithm = "RSA" # algo
+  rsa_bits  = 4096
 }
 
-resource "azapi_resource_action" "ssh_public_key_gen" {
-  type        = "Microsoft.Compute/sshPublicKeys@2022-11-01"
-  resource_id = azapi_resource.ssh_public_key.id
-  action      = "generateKeyPair"
-  method      = "POST"
-
-  response_export_values = ["publicKey", "privateKey"]
+# Sauvegarder la clé privée dans un fichier
+resource "local_file" "private_key_file" {
+  content  = tls_private_key.tls_key.private_key_pem
+  filename = "./id_rsa"
 }
 
-resource "azapi_resource" "ssh_public_key" {
-  type      = "Microsoft.Coute/sshPublicKeys@2022-11-01"
-  name      = random_pet.ssh_key_name.id
-  location  = azurerm_resource_group.rg.location
-  parent_id = azurerm_resource_group.rg.id
+# Sauvegarder la clé publique dans un fichier
+resource "local_file" "public_key_file" {
+  content  = tls_private_key.tls_key.public_key_openssh
+  filename = "./id_rsa.pub"
 }
 
-output "key_data" {
-  value = jsondecode(azapi_resource_action.ssh_public_key_gen.output).publicKey
+output "private_key_pem" {
+  value     = tls_private_key.tls_key.private_key_pem
+  sensitive = true
+}
+
+output "public_key_openssh" {
+  value = tls_private_key.tls_key.public_key_openssh
 }
